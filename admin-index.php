@@ -72,6 +72,7 @@ session_start();
               </li>
               <li><a href="#">Reservaciones</a></li>
               <li><a href="#">Horarios</a></li>
+              <li><a href="#">dhsf</a></li>
             </ul>
             
           </div><!-- /.navbar-collapse -->
