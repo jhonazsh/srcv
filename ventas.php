@@ -81,17 +81,19 @@ session_start();
     
     <div class="container">
 
+
+    <form action="registro.php"method="post"role="form">
       <div class="panel panel-default panel-ventas">
         <div class="panel-body">
 
           <div class="row">
             <div class="col-md-3">
               <label>Origen:</label>
-              <input type="text" class="form-control input-sm" placeholder="Origen" value="Trujillo" disabled>
+              <input type="text" name="origen"class="form-control input-sm" placeholder="Origen" value="Trujillo">
             </div>
             <div class="col-md-3">
               <label>Destino:</label>
-              <select class="form-control input-sm">
+              <select class="form-control input-sm" name="destino">
                 <option>Trujillo</option>
                 <option>Lima</option>
                 <option>Máncora</option>
@@ -101,46 +103,56 @@ session_start();
             </div>
             <div class="col-md-4">
               <label>Fecha de Salida:</label>
-              <input type="text" class="form-control input-sm" placeholder="Fecha de Salida">
+              <input type="text" name="fecha_salida"class="form-control input-sm" placeholder="Fecha de Salida">
             </div>
             <div class="col-md-2">
               <label>Hora de Salida:</label>
-              <input type="text" class="form-control input-sm" placeholder="Hora de Salida">
+              <input type="text" name="hora_salida"class="form-control input-sm" placeholder="Hora de Salida">
             </div>
           </div>
 
           <div class="row margen-arriba-uno">
             <div class="col-md-2">
               <label>DNI:</label>
-              <input type="text" class="form-control input-sm"  placeholder="DNI">
+              <input type="text" name="dni"class="form-control input-sm"  placeholder="DNI">
             </div>
             <div class="col-md-5">
               <label>Nombres:</label>
-              <input type="text" class="form-control input-sm" placeholder="Nombres">
+              <input type="text" name="nombres"class="form-control input-sm" placeholder="Nombres">
             </div>
             <div class="col-md-5">
               <label>Apellidos:</label>
-              <input type="text" class="form-control input-sm"  placeholder="Apellidos">
+              <input type="text" name="apellidos"class="form-control input-sm"  placeholder="Apellidos">
             </div>
           </div>
 
           <div class="row margen-arriba-uno">
             <div class="col-md-3">
               <label>Fecha Actual:</label>
-              <input type="text" class="form-control input-sm" id="exampleInputEmail1" placeholder="Fecha Actual">
+              <input type="text" name="fecha_actual"class="form-control input-sm" id="exampleInputEmail1" placeholder="Fecha Actual">
             </div>
             <div class="col-md-3">
               <label>N° Asiento:</label>
-              <input type="text" class="form-control input-sm" id="exampleInputPassword1" placeholder="N° Asiento">
+              <input type="text" name="asiento"class="form-control input-sm" id="exampleInputPassword1" placeholder="N° Asiento">
             </div>
             <div class="col-md-3">
               <label>Precio:</label>
-              <input type="text" class="form-control input-sm" id="exampleInputPassword1" placeholder="Precio">
+              <input type="text" name="precio"class="form-control input-sm" id="exampleInputPassword1" placeholder="Precio">
             </div>
+      
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+            <div class="col-md-3">
+              <button type="reset"  class="btn btn-primary">Borrar</button>
+            </div>
+
           </div>
 
         </div>
       </div>
+      </form>
+      
 
       <br>
       <div class="panel panel-default">
