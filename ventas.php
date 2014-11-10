@@ -24,6 +24,8 @@ session_start();
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+
   </head>
   <body>
 
@@ -82,18 +84,19 @@ session_start();
     <div class="container">
 
 
-    <form action="registro.php"method="post"role="form">
+    
       <div class="panel panel-default panel-ventas">
         <div class="panel-body">
 
           <div class="row">
             <div class="col-md-3">
               <label>Origen:</label>
-              <input type="text" name="origen"class="form-control input-sm" placeholder="Origen" value="Trujillo">
+              <input type="text" id="origen" class="form-control input-sm" placeholder="Origen" value="Trujillo" disabled>
             </div>
             <div class="col-md-3">
               <label>Destino:</label>
-              <select class="form-control input-sm" name="destino">
+              <select class="form-control input-sm" id="destino">
+                <option>--- Elegir Destino ---</option>
                 <option>Trujillo</option>
                 <option>Lima</option>
                 <option>Máncora</option>
@@ -103,55 +106,66 @@ session_start();
             </div>
             <div class="col-md-4">
               <label>Fecha de Salida:</label>
-              <input type="text" name="fecha_salida"class="form-control input-sm" placeholder="Fecha de Salida">
+              <input type="date" id="fecha-salida" class="form-control input-sm">
             </div>
             <div class="col-md-2">
               <label>Hora de Salida:</label>
-              <input type="text" name="hora_salida"class="form-control input-sm" placeholder="Hora de Salida">
+              <select class="form-control input-sm" id="hora-salida">
+                <option>--- Elegir Hora ---</option>
+                <option>2:30 pm</option>
+                <option>3:30 pm</option>
+                <option>8:20 pm</option>
+                <option>9:00 am</option>
+                <option>10:00 am</option>
+              </select>
             </div>
           </div>
 
           <div class="row margen-arriba-uno">
             <div class="col-md-2">
               <label>DNI:</label>
-              <input type="text" name="dni"class="form-control input-sm"  placeholder="DNI">
+              <input type="text" id="dni" class="form-control input-sm"  placeholder="DNI">
             </div>
             <div class="col-md-5">
               <label>Nombres:</label>
-              <input type="text" name="nombres"class="form-control input-sm" placeholder="Nombres">
+              <input type="text" id="nombre" class="form-control input-sm" placeholder="Nombres">
             </div>
             <div class="col-md-5">
               <label>Apellidos:</label>
-              <input type="text" name="apellidos"class="form-control input-sm"  placeholder="Apellidos">
+              <input type="text" id="apellido" class="form-control input-sm"  placeholder="Apellidos">
             </div>
           </div>
 
           <div class="row margen-arriba-uno">
             <div class="col-md-3">
               <label>Fecha Actual:</label>
-              <input type="text" name="fecha_actual"class="form-control input-sm" id="exampleInputEmail1" placeholder="Fecha Actual">
+              <input type="text" id="fecha-actual" class="form-control input-sm" disabled>
             </div>
             <div class="col-md-3">
               <label>N° Asiento:</label>
-              <input type="text" name="asiento"class="form-control input-sm" id="exampleInputPassword1" placeholder="N° Asiento">
+              <div class="input-group input-group-sm">
+                <span class="input-group-addon">N°</span>
+                <input type="text" id="n-asiento" class="form-control" placeholder="Asiento">
+              </div>
             </div>
             <div class="col-md-3">
               <label>Precio:</label>
-              <input type="text" name="precio"class="form-control input-sm" id="exampleInputPassword1" placeholder="Precio">
+              <div class="input-group input-group-sm">
+                <span class="input-group-addon">S/.</span>
+                <input type="text" id="precio" class="form-control" placeholder="Precio">
+                <span class="input-group-addon">.00</span>
+              </div>
             </div>
       
             <div class="col-md-3">
-              <button type="submit" class="btn btn-primary">Enviar</button>
-            </div>
-            <div class="col-md-3">
-              <button type="reset"  class="btn btn-primary">Borrar</button>
+              <button class="btn btn-danger btn-sm margen-arriba-dos" style="width:100%" id="vender" data-target="#myModal">Vender Pasaje</button>
             </div>
 
           </div>
 
         </div>
       </div>
-      </form>
+      
       
 
       <br>
@@ -348,7 +362,7 @@ session_start();
             </div>
           </div>
 
-          <div class="row fila-asiento margen-arriba-uno">
+          <div class="row fila-asiento ">
             <div class="col-md-12">
 
               <div class="row">
@@ -554,6 +568,10 @@ session_start();
 
     </div>
 
+    <div id="modal-template">
+
+    </div>
+
       <?php
         }
         else{
@@ -588,7 +606,61 @@ session_start();
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+
+    <script id="modal-venta" type="text/x-jquery-template">
+      <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title">Venta de Pasaje: (Detalle)</h4>
+            </div>
+            <div class="modal-body">
+              <p class="text-justify">
+                La venta de este pasaje se ha hecho correctamente, para poder terminar el proceso de venta
+                debes imprimir el boleto.
+              </p>
+              <p class="text-center"><b>Origen:</b> ${origen}</p>
+              <p class="text-center"><b>Destino:</b> ${destino}</p>
+              <p class="text-center"><b>Fecha de Salida:</b> ${fechaSalida}</p>
+              <p class="text-center"><b>Hora de Salida:</b> ${horaSalida}</p>
+              <p class="text-center"><b>Documento (DNI):</b> ${dni}</p>
+              <p class="text-center"><b>Pasajero:</b> ${nombres} ${apellidos}</p>
+              <p class="text-center"><b>N° Asiento:</b> ${nAsiento}</p>
+              <p class="text-center"><b>Precio:</b> ${precio}</p>
+              <p class="text-center"><b>Fecha de Venta:</b> ${fechaActual}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal" id="imp">Imprimir Boleto</button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </script>
+
     <script type="text/javascript">
+
+    function diaActual(){
+      var ahora = new Date();
+
+      var dia;
+      var mes = String(ahora.getMonth()+1);
+      var anio = ahora.getFullYear();
+
+      if(ahora.getDate()< 10){
+        dia = String("0"+ahora.getDate());
+      }
+      else{
+        dia = ahora.getDate();
+      }
+
+      $('#fecha-actual').val(dia+"/"+mes+"/"+anio);
+      $('#fecha-salida').val(anio+"-"+mes+"-"+dia);
+    }
+    
+    diaActual();
+    
 
     $('#salir').on('click', saliendo);
 
@@ -601,6 +673,67 @@ session_start();
           window.location.href = data;
         }
       });
+    }
+
+    $('#dni').on('keypress', consultandoAjax);
+
+    function consultandoAjax(e){
+
+      if(e.which == 13){
+        var dniAjax = $('#dni').val();
+
+        $.ajax({
+          data: {'dniConsulta':dniAjax},
+          type:'GET',
+          url:'consultando-ajax.php',
+          dataType: 'json',
+          success: function(data){
+            console.log(data);
+          }
+        });
+      }
+    }
+    
+
+    // enlazador con la función vendiendo
+    $('#vender').on('click', vendiendo);
+
+    function vendiendo(){
+
+      //objeto que contiene todos los datos del formulario de ventas
+      var pasajeVenta = {
+        origen: $('#origen').val(),
+        destino: $('#destino').val(),
+        fechaSalida: $('#fecha-salida').val(),
+        horaSalida: $('#hora-salida').val(),
+        dni: $('#dni').val(),
+        nombres: $('#nombre').val(),
+        apellidos: $('#apellido').val(),
+        fechaActual: $('#fecha-actual').val(),
+        nAsiento: $('#n-asiento').val(),
+        precio: $('#precio').val()
+      };
+
+      // ajax para pasar los datos del formulario
+      $.ajax({
+        data: pasajeVenta,
+        type:'POST',
+        url:'registro.php',
+        success: function(data){
+          console.log(data);
+          $('#modal-venta').tmpl(pasajeVenta).appendTo('#modal-template');
+          $('#myModal').modal('show');
+
+          $('#imp').on('click', refresh);
+
+        }
+      });
+
+    }
+
+    function refresh(){
+      window.location.href='ventas.php';
+      console.log('hola');
     }
 
     </script>
