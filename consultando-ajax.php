@@ -2,18 +2,10 @@
 
 include("conexionBd.php");
 
-$dni_consulta = $_GET['dniConsulta'];
-$dni_json = array();
-$i=0;
+$dni_consulta = $_POST['dniConsulta'];
 
-$consulta = mysqli_query($con,"SELECT * FROM clientes");
+$consulta = mysql_query("SELECT * FROM clientes WHERE DNI='$dni_consulta' ",$con);
 
- 
-while($row = mysqli_fetch_array($consulta,MYSQLI_ASSOC)){
-    $dni_json[$i] = $row;
-    $i++;
-}
-
-echo json_encode($dni_json);
-
+$row = mysql_fetch_array($consulta);
+echo $dni_consulta;
 ?>

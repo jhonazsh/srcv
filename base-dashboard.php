@@ -29,16 +29,19 @@ session_start();
   </head>
   <body>
 
+    <?php 
+      if(isset($_SESSION['admin'])){
+    ?>
+
     <div class="container">
       <br>
       
       <div class="row">
         <div class="col-md-3 col-md-offset-9">
           <?php
-            if(isset($_SESSION['admin'])){
+            
               echo "Haz ingresado como: ".$_SESSION['admin'];
               echo "&nbsp;&nbsp;<btn class='btn btn-primary btn-xs' id='salir'>Salir <span class='glyphicon glyphicon-off'></span></btn>";
-          	
           ?>
         </div>
       </div>
@@ -55,14 +58,23 @@ session_start();
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">SRCV</a>
+            <a class="navbar-brand" href="admin-index.php">SRCV</a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
             <ul class="nav navbar-nav">
-              <li><a href="#">Ventas</a></li>
-              <li><a href="#">Link</a></li>
+              <li><a href="ventas.php">Ventas</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="reporte-ventas.php">De Ventas</a></li>
+                  <li><a href="#">De Clientes</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Reservaciones</a></li>
+              <li><a href="#">Horarios</a></li>
             </ul>
             
           </div><!-- /.navbar-collapse -->
@@ -75,11 +87,31 @@ session_start();
     <?php endblock() ?>
 
     <?php
-    	}
-    	else{
-    		echo "Tienes que Loguearte para Ingresar a esta sección.";
-    	}
-    ?>
+        }
+        else{
+
+      ?>
+
+      <div class="container">
+        <div class="row margen-arriba-3">
+          <div class="col-md-6 col-md-offset-3">
+            <p class="text-center font-size-3">
+              <span class="glyphicon glyphicon-remove"></span>
+            </p>
+            <p class="text-center font-size-2">
+              Logueate para Ingresar a esta sección.
+            </p>
+            <p class="text-center margen-arriba-uno">
+              <a href="admin.php" class="btn btn-default btn-sm btn-primary"> Logueate </a>
+            </p>
+            
+          </div>
+        </div>
+      </div>
+   
+      <?php
+        }
+      ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
@@ -102,5 +134,9 @@ session_start();
     }
 
     </script>
+
+    <?php startblock('js') ?>
+    <?php endblock() ?>
+
   </body>
 </html>
